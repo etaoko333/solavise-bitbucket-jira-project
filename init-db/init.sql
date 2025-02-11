@@ -1,0 +1,8 @@
+CREATE DATABASE jiradb;
+CREATE USER jiraeta WITH ENCRYPTED PASSWORD 'jirasola';
+GRANT ALL PRIVILEGES ON DATABASE jiradb TO jiraeta;
+
+CREATE DATABASE bitbucketdb;
+CREATE USER bitbucketeta WITH ENCRYPTED PASSWORD 'bitbucketsola';
+GRANT ALL PRIVILEGES ON DATABASE bitbucketdb TO bitbucketeta;
+

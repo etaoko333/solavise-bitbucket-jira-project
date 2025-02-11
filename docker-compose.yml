@@ -1,18 +1,4 @@
 version: '3.8'
-
-services:
-  web:
-    build: ./web
-    ports:
-      - "5000:5000"
-    depends_on:
-      - db
-    environment:
-      - DB_NAME=mydb
-      - DB_USER=user
-      - DB_PASSWORD=password
-      - DB_HOST=db
-
   jira:
     image: atlassian/jira-software:latest
     container_name: jira

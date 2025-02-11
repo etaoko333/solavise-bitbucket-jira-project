@@ -19,9 +19,9 @@
 -sudo systemctl status docker
 
 #install docker compose
-`sudo rm /usr/local/bin/docker-compose`
+sudo rm /usr/local/bin/docker-compose`
 `sudo curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose`
-1sudo chmod +x /usr/local/bin/docker-compose1
+sudo chmod +x /usr/local/bin/docker-compose
 -docker-compose --version
 - mkdir bitbucket
 -cd bitbucket
