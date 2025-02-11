@@ -18,21 +18,23 @@
 -sudo systemctl enable docker
 -sudo systemctl status docker
 
--install docker compose
--sudo rm /usr/local/bin/docker-compose
--sudo curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
--sudo chmod +x /usr/local/bin/docker-compose
+#install docker compose
+`sudo rm /usr/local/bin/docker-compose`
+`sudo curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose`
+1sudo chmod +x /usr/local/bin/docker-compose1
 -docker-compose --version
 - mkdir bitbucket
 -cd bitbucket
 -create inventory. ini
 -vim inventory.ini
 - enter this code
-- [jira]
-- localhost ansible_connection=local
+  
+ [jira]
 
-- [bitbucket]
--localhost ansible_connection=local
+`localhost ansible_connection=local`
+
+` [bitbucket]
+`localhost ansible_connection=local
 
 - vim deploy-bitbucket.yal   -paste your code but i have already added the  code to the file
 
@@ -40,10 +42,15 @@
 
 - after run this code
 
+<<<<<<< HEAD
 -inventory.ini deploy-jira.yml
 -ansible-playbook -i inventory.ini deploy-bitbucket.yml
+=======
+  `inventory.ini deploy-jira.yml`
+`ansible-playbook -i inventory.ini deploy-bitbucket.yml`
+>>>>>>> b6e83620ef890844ae7d998779e95f8a561d91f7
 
-- Then create your docker-compose.yml. i have already created the file 
+- Then create your docker-compose.yml file. i have already created the file 
 - run this command 
 - docker-compose up -d
 - check your browser with your ip:address.
