@@ -1,4 +1,22 @@
-ports:
+version: '3.8'
+
+services:
+  web:
+    build: ./web
+    ports:
+      - "5000:5000"
+    depends_on:
+      - db
+    environment:
+      - DB_NAME=mydb
+      - DB_USER=user
+      - DB_PASSWORD=password
+      - DB_HOST=db
+
+  jira:
+    image: atlassian/jira-software:latest
+    container_name: jira
+    ports:
       - "8080:8080"
     environment:
       - JIRA_HOME=/var/atlassian/application-data/jira
@@ -6,8 +24,8 @@ ports:
       - JIRA_DB_HOST=db
       - JIRA_DB_PORT=5432
       - JIRA_DB_NAME=jiradb
-      - JIRA_DB_USER=jirauser    #create your own password
-      - JIRA_DB_PASSWORD=jirapassword   #create your own password
+      - JIRA_DB_USER=jiraeta
+      - JIRA_DB_PASSWORD=jirasola
     volumes:
       - jira_data:/var/atlassian/application-data/jira
     depends_on:
@@ -23,8 +41,8 @@ ports:
       - BITBUCKET_DB_HOST=db
       - BITBUCKET_DB_PORT=5432
       - BITBUCKET_DB_NAME=bitbucketdb
-      - BITBUCKET_DB_USER=bitbucketuser        #create your own username
-      - BITBUCKET_DB_PASSWORD=bitbucketpassword #create your own password
+      - BITBUCKET_DB_USER=bitbucketeta
+      - BITBUCKET_DB_PASSWORD=bitbucketsola
     volumes:
       - bitbucket_data:/var/atlassian/application-data/bitbucket
     depends_on:
@@ -39,9 +57,21 @@ ports:
       - POSTGRES_PASSWORD=postgrespassword
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    command: >
+      bash -c "
+        docker-entrypoint.sh postgres &
+        sleep 10 && 
+        psql -U postgres -c \"CREATE DATABASE jiradb;\" && 
+        psql -U postgres -c \"CREATE USER jiraeta WITH ENCRYPTED PASSWORD 'jirasola';\" && 
+        psql -U postgres -c \"GRANT ALL PRIVILEGES ON DATABASE jiradb TO jiraeta;\" && 
+        psql -U postgres -c \"CREATE DATABASE bitbucketdb;\" && 
+        psql -U postgres -c \"CREATE USER bitbucketeta WITH ENCRYPTED PASSWORD 'bitbucketsola';\" && 
+        psql -U postgres -c \"GRANT ALL PRIVILEGES ON DATABASE bitbucketdb TO bitbucketeta;\"
+      "
 
 volumes:
   jira_data:
   bitbucket_data:
   postgres_data:
-

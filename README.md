@@ -40,7 +40,7 @@
 
 - after run this code
 
-- inventory.ini deploy-jira.yml
+-inventory.ini deploy-jira.yml
 -ansible-playbook -i inventory.ini deploy-bitbucket.yml
 
 - Then create your docker-compose.yml. i have already created the file 
